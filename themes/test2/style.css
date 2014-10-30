@@ -1,0 +1,87 @@
+body {
+    text-align: center;
+}
+
+html {
+    font-size: 100%;
+    text-align:center;
+    background: white url("imgs/backshade.png") repeat-x;
+    font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+} 
+
+header, article, nav, footer  {
+    border-width:1px;
+    border-style:solid;
+    border-color:blue;
+    margin: 20px;
+    padding: 10px;    
+}
+
+h1 {
+    margin-top: 5px;
+    color: #333;
+    line-height: 90%;
+    letter-spacing: -2px;
+}
+header h1 {
+    font-size: 45px;
+}
+
+p {
+    color: #76879b;
+    font-size: 16px;
+}
+
+body {
+    width: 80%;
+    min-width: 600px;
+    max-width: 1200px;
+    margin: 0 auto;
+
+    text-align: left;
+}   
+
+article {  
+    float:left;
+    position: relative;
+    width: 65%;
+}
+article img {
+    width: 100%;
+}
+nav {
+    float:right;
+    position: relative; 
+    width: 20%;
+    min-width: 100px;
+    max-width: 200px; 
+}
+nav ul {
+    margin:0px;
+
+    margin-left: -5px;
+    padding:0px;
+}
+nav li {
+    margin-left: 15px;
+    list-style-type:none;
+}
+nav a {
+    color: red; 
+    text-decoration: none;
+
+}
+nav a:hover {
+    color: #c37676;
+    text-decoration: underline;
+}
+
+footer {
+    clear: both;
+}
+
+
+
+
+
+

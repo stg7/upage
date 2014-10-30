@@ -1,0 +1,243 @@
+
+html {
+
+    font-family: 'Lucida Grande', 'Trebuchet MS', arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    font-size: 100%;
+    text-align:center;
+    background: white url(imgs/backshade.png) repeat-x;
+    color: black;
+}
+
+hr { display: none }
+
+p { margin: .5em 0 }
+
+img { border: none }
+
+blockquote {
+    width: 90%;
+    color: #666;
+    margin: 1em 1em;
+    padding: 0 10px;
+    border-left: 5px solid #bbb
+}
+
+pre, code {
+    font-family: Lucida Console, Monaco, monospace;
+    font-size: 90%;
+}
+
+pre {
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    background-color: #efefef;
+
+    overflow: auto;
+    width: 90%;
+    margin: 1em 1em;
+    padding: 5px 10px;
+    
+    /* fix overflow in IE */
+    min-height: 40px; 
+    height: auto !important; 
+    height: 40px; 
+}
+
+ul, li, ol { margin: 0; padding: 0 }
+
+/* === Form === */
+form { margin: 1em 0 }
+
+fieldset {
+    margin: 0 0 1em 0;
+    padding: .5em;
+    border: #ddd solid 1px
+}
+
+legend {
+    color: #666666;
+    font-size: 80%;
+    font-style: oblique
+}
+
+input, textarea, select {
+    padding: .2em;
+    border: 1px solid #999;
+    color: #222;
+    background-color: #eee;
+}
+
+input:hover, input:focus, textarea:hover, textarea:focus {
+    border: 1px solid #AA1111;
+    background-color: #fff
+}
+
+textarea {
+    font-size: 100%;
+    font-family: 'Lucida Grande', 'Trebuchet MS', arial, Helvetica, sans-serif;
+    width: 99%;
+    margin-top: .1em;
+    margin-bottom: 1em
+}
+
+
+
+/* ===== LINKS GENERAL ===== */
+a:link, a:visited {
+    color: #aa4142;
+    font-weight: bold;
+    text-decoration: none
+}
+
+a:hover {
+    color: #c37676;
+    text-decoration: underline
+}
+
+
+
+/* ===== HEADERS TAGS ===== */
+h1 {
+    /* Title of the blog */
+    font-size: 2em;
+    letter-spacing: 2px;
+    /*margin: 2em 0 0 0 */
+}
+
+h3 {
+    /* Titles of the entry */
+    font-family: 'book antiqua', georgia, garamond, times, 'times new roman', serif;
+    font-style: italic;
+    font-size: 1.5em;
+    color: #333333;
+    margin: 0
+}
+
+h4 { font-size: 1.2em; }
+
+
+
+/* ===== DIV CONTAINER ALL ELEMENTS BLOCK ===== */
+#body-container {
+    text-align: left;
+    width: 760px !important;
+    width: 748px; /* fix for I.E. */
+    margin: 0 auto 0 auto;
+    padding: 5px;
+    border: solid 1px #ccc;
+    background-color: white
+}
+
+
+
+/* ===== HEAD ===== */
+#head {
+    font-family: 'book antiqua', georgia, garamond,  times, 'times new roman', serif;
+    padding: 95px 10px 5px 5px;
+    margin: 10px;
+    background: #c37676 url('imgs/shade.png') repeat-x;
+    border: #bbb 1px solid
+}
+
+#head a { color: white; text-decoration: none }
+
+    .subtitle {
+        font-size: 100%;
+        font-style: oblique;
+        color: #F1F1F1;
+        margin: .5em 0 0 0
+    }
+
+
+
+/* ===== DIV CONTAINER "MAIN" ===== */
+#outer-container {
+    position: relative;
+    height: 1%;
+    margin: 0px;
+    padding: 0px;
+    border-top: 1px solid white; /* problem with I.E. */
+    background-color: white
+}
+
+
+
+/* ===== MAIN ===== */
+#main h4 { margin: 2em 0 0 0}
+
+#main {
+    float:left;
+    position: relative;
+    width: 508px !important;
+    width: 478px;
+    font-size: 100%;
+    margin: 12px;
+}
+
+#main p { line-height: 1.5em; margin-top: 1.2em; }
+
+#main img { margin: .5em }
+
+/* === List === */
+#main ul {
+    list-style-type: disc;
+    padding: 0 0 0 1.6em
+}
+
+#main ol {
+    list-style-position: inside;
+    padding: 0 1.6em 0 1.6em
+}
+
+
+
+/* ===== FOOTER ===== */
+#footer {
+    clear: both;
+    font-size: 80%;
+    color: #555;
+    padding: 5px;
+    border-top: #bbb 1px solid
+}
+
+.alignleft { float: left }
+
+.alignright { float: right }
+
+
+/* ===== COLUMN ===== */
+
+#menu {
+    float: right;
+    width: 195px !important;
+    width: 180px;
+    font-size: 80% !important;
+    font-size: 75%;
+    height:1%;
+    margin-bottom: 5px;
+    padding: 10px;
+    border-left: solid 1px #ccc
+}
+
+#menu h4 {
+    margin-bottom: .5em;
+}
+
+#menu p, #menu div { margin: 10px 5px }
+
+#menu a:link, #menu a:visited { color: gray }
+
+
+/* === List === */
+#menu ul li table { font-size: 100% }
+
+#menu ul {
+    list-style-type: none;
+    margin-right: 10px;
+    margin-bottom: .5em;
+    padding-left: 1em
+}
+
+
