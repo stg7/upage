@@ -33,5 +33,4 @@ class Wiki {
     	return $wkr->render($s);
 
     }
-
 }

@@ -22,6 +22,7 @@ $config = array (
     "debug" => true,
 );
 
+
 // blog infos
 $_ = array (
     'title' => "title...",
