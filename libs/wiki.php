@@ -31,6 +31,5 @@ class Wiki {
     	$wkr = new WikiRenderer('dokuwiki_to_xhtml');
 
     	return $wkr->render($s);
-
     }
 }
