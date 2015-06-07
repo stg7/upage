@@ -5,16 +5,16 @@ body {
 html {
     font-size: 100%;
     text-align:center;
-    background: white url("imgs/backshade.png") repeat-x;
+    background: white url("img/backshade.png") repeat-x;
     font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
-} 
+}
 
 header, article, nav, footer  {
     border-width:1px;
     border-style:solid;
     border-color:blue;
     margin: 20px;
-    padding: 10px;    
+    padding: 10px;
 }
 
 h1 {
@@ -23,6 +23,14 @@ h1 {
     line-height: 90%;
     letter-spacing: -2px;
 }
+
+h2 {
+    margin-top: 2px;
+    color: #333;
+    line-height: 80%;
+    letter-spacing: -2px;
+}
+
 header h1 {
     font-size: 45px;
 }
@@ -39,9 +47,9 @@ body {
     margin: 0 auto;
 
     text-align: left;
-}   
+}
 
-article {  
+article {
     float:left;
     position: relative;
     width: 65%;
@@ -51,10 +59,10 @@ article img {
 }
 nav {
     float:right;
-    position: relative; 
+    position: relative;
     width: 20%;
     min-width: 100px;
-    max-width: 200px; 
+    max-width: 200px;
 }
 nav ul {
     margin:0px;
@@ -67,7 +75,7 @@ nav li {
     list-style-type:none;
 }
 nav a {
-    color: red; 
+    color: red;
     text-decoration: none;
 
 }
