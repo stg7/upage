@@ -23,23 +23,4 @@
     along with upage.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-// config settings
-$config = array (
-    "contentdir" => "content/",
-    "defaultpage" => "main.md",
-    "themesdir" => "themes/",
-    "theme" => "test2/",
-    "contentext" => array ("md"),
-    "downloadext" => array ("JPG","jpg","png","txt","zip", "pdf"),
-    "debug" => true,
-);
-
-// blog infos
-$_ = array (
-    'title' => "title...",
-    'subtitle' => " subtitle",
-    'themedir' => $config["themesdir"].$config["theme"],
-    'author' => "stg7 &copy; 2014",
-);
-
-include_once("libs/renderer.php");
+include_once('markdown.php');

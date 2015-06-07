@@ -23,23 +23,23 @@
     along with upage.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-// config settings
-$config = array (
-    "contentdir" => "content/",
-    "defaultpage" => "main.md",
-    "themesdir" => "themes/",
-    "theme" => "test2/",
-    "contentext" => array ("md"),
-    "downloadext" => array ("JPG","jpg","png","txt","zip", "pdf"),
-    "debug" => true,
-);
+include_once('markdownrenderer/Michelf/MarkdownExtra.inc.php');
 
-// blog infos
-$_ = array (
-    'title' => "title...",
-    'subtitle' => " subtitle",
-    'themedir' => $config["themesdir"].$config["theme"],
-    'author' => "stg7 &copy; 2014",
-);
 
-include_once("libs/renderer.php");
+use \Michelf\MarkdownExtra;
+
+
+class Renderer {
+    public function get_html($s) {
+        $html = MarkdownExtra::defaultTransform($s);
+        return $html;
+    }
+};
+
+
+function make_link($name, $target) {
+    return "[".$name."](".$target.")";
+}
+function make_pic($url, $alt) {
+    return "![".$alt."](".$url.")";
+}

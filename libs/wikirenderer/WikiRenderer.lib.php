@@ -225,9 +225,9 @@ abstract class WikiTag {
 
 class WikiTextLineContainer {
     public $tag = null;
-    
+
     public $allowedTags = array();
-    
+
     public $pattern = '';
 }
 
@@ -250,7 +250,7 @@ class WikiInlineParser {
     protected $config;
 
     protected $textLineContainers=array();
-    
+
     protected $currentTextLineContainer = null;
 
     /**
@@ -265,7 +265,7 @@ class WikiInlineParser {
         foreach($config->simpletags as $tag=>$html){
             $simpletagPattern.='|('.preg_quote($tag, '/').')';
         }
-        
+
         $escapePattern = '';
         if($this->escapeChar != '')
             $escapePattern ='|('.preg_quote($this->escapeChar, '/').')';
@@ -275,7 +275,7 @@ class WikiInlineParser {
             $c = new WikiTextLineContainer();
             $c->tag = new $class($config);
             $separators = $c->tag->separators;
-            
+
             $tagList = array();
             foreach($tags as $tag) {
                 $t = new $tag($config);
@@ -301,7 +301,7 @@ class WikiInlineParser {
     /**
     * main function which parse a line of wiki content
     * @param   string   $line   a string containing wiki content, but without line feeds
-    * @return  string   the line transformed to the target content 
+    * @return  string   the line transformed to the target content
     */
     public function parse($line){
         $this->error=false;
@@ -330,7 +330,7 @@ class WikiInlineParser {
 
       $checkNextTag=true;
 
-      // we analyse each part of the string, 
+      // we analyse each part of the string,
       for($i=$posstart+1; $i < $this->end; $i++){
             $t=&$this->str[$i];
 
