@@ -22,7 +22,6 @@
     You should have received a copy of the GNU General Public License
     along with upage.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 mb_internal_encoding('UTF-8'); // UTF8
 
 function error_handler($errno, $errmsg, $filename, $linenum) {
