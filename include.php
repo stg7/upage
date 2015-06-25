@@ -22,6 +22,9 @@
     You should have received a copy of the GNU General Public License
     along with upage.  If not, see <http://www.gnu.org/licenses/>.
 */
+
+include_once("libs/renderer.php");
+
 mb_internal_encoding('UTF-8'); // UTF8
 
 function error_handler($errno, $errmsg, $filename, $linenum) {
@@ -57,27 +60,26 @@ function get_script_url(){
 
 function rscandir($base='',$filter, $subfolder=true, &$data=array()) {
 
-  $array = array_diff(scandir($base), array('.', '..')); # remove . and .. from the array */
+    $array = array_diff(scandir($base), array('.', '..')); # remove . and .. from the array */
 
-  foreach($array as $value) { /* loop through the array at the level of the supplied $base */
+    foreach($array as $value) { /* loop through the array at the level of the supplied $base */
 
-    if (is_dir($base.$value)) { /* if this is a directory */
-      $data[] = $base.$value; #.'/'; /* add it to the $data array */
-      if ($subfolder) {
-        $data = rscandir($base.$value.'/', $filter, true, $data); /* then make a recursive call with the
-      current $value as the $base supplying the $data array to carry into the recursion */
-      }
+        if (is_dir($base.$value)) { /* if this is a directory */
+            $data[] = $base.$value; #.'/'; /* add it to the $data array */
+            if ($subfolder) {
+                $data = rscandir($base.$value.'/', $filter, true, $data); /* then make a recursive call with the
+                current $value as the $base supplying the $data array to carry into the recursion */
+            }
+        }
+        elseif(is_file($base.$value) ) { /* else if the current $value is a file */
+            if(in_array(get_extension($base.$value), $filter) ) {
+                $data[] = $base.$value; /* just add the current $value to the $data array */
+            }
+        }
+
     }
-    elseif(is_file($base.$value) ) { /* else if the current $value is a file */
-      if(in_array(get_extension($base.$value), $filter) ) {
-        $data[] = $base.$value; /* just add the current $value to the $data array */
-      }
-    }
 
-  }
-
-  return $data; // return the $data array
-
+    return $data; // return the $data array
 }
 
 function str_is_prefix($haystack, $needle) {
@@ -91,18 +93,18 @@ function str_is_suffix($haystack, $needle) {
 function get_pics($linkpath, $path, $ext) {
     $ret = "";
     foreach(rscandir($path, $ext, false) as $c) {
-      if(!is_dir($c)) {
-        $ret.="[[ ".$linkpath.$c." | {{".$linkpath.$c."| ".basename($c)."  }} ]] "."\n";
-      }
+        if(!is_dir($c)) {
+            $ret.= make_pic($linkpath.$c, basename($c))."\n";
+        }
 
     }
     return $ret;
 }
 function get_files($linkpath, $path, $ext) {
     $ret = "";
-    foreach(rscandir($path, $ext, false) as $c) {
-      if(!is_dir($c)) {
-        $ret.="* [[".$linkpath.$c."| ".basename($c)."  ]] "."\n";
+    foreach (rscandir($path, $ext, false) as $c) {
+      if (!is_dir($c)) {
+        $ret.="* ". make_link(basename($c), $linkpath.$c)."\n";
       }
     }
     return $ret;
@@ -110,15 +112,15 @@ function get_files($linkpath, $path, $ext) {
 function get_files_rek($linkpath, $path, $ext, $selection) {
     $ret = '';
     foreach(rscandir($path, $ext, true) as $c) {
-      $linkname = str_replace($selection,"",dirname($c))."/".basename($c);
+      $linkname = str_replace($selection, "", dirname($c))."/".basename($c);
       $level = substr_count($c, "/");
 
-      for($i = 0; $i < $level; $i++) {
+      for($i = 1; $i < $level; $i++) {
         $ret .= " ";
       }
 
       if(!is_dir($c)) {
-        $ret .= "* [[".$linkpath.$c."| ".basename($linkname)."  ]] "."\n";
+        $ret .= "* ". make_link(basename($linkname), $linkpath.$c)."\n";
       } else {
         $ret .= "* " . basename($linkname) . "  " . "\n";
       }

@@ -26,10 +26,18 @@
 include_once('wikirenderer/WikiRenderer.lib.php');
 include_once('wikirenderer/rules/dokuwiki_to_xhtml.php');
 
-class Wiki {
+class Renderer {
     public function get_html($s) {
     	$wkr = new WikiRenderer('dokuwiki_to_xhtml');
 
     	return $wkr->render($s);
     }
+}
+
+
+function make_link($name, $target) {
+    return "[[".$target." | ".$name." ]]";
+}
+function make_pic($url, $alt) {
+    return "{{".$url."| ".$alt."  }}"."\n";
 }

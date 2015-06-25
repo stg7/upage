@@ -1,7 +1,7 @@
 upage
 =====
 
-Upage is a minimal filebased php webpage framework, using wiki files for content storing.
+Upage is a minimal filebased php webpage framework, using markdown files for content storing.
 
 
 setup
@@ -14,10 +14,10 @@ For configuration modify config.php:
 ```php
 $config = array (
     "contentdir" => "content/",
-    "defaultpage" => "main.wiki",
+    "defaultpage" => "main.md",
     "themesdir" => "themes/",
     "theme" => "test2/",
-    "contentext" => array ("wiki"),
+    "contentext" => array ("md"),
     "downloadext" => array ("JPG","jpg","png","txt","zip", "pdf"),
     "debug" => true,
 );
@@ -31,3 +31,10 @@ $_ = array (
     'author' => "stg7 &copy; 2014",
 );
 ```
+
+search index (experimental)
+---------------------------
+
+start build_sindex.php and copy stdout to sindex.php, or build_sindex.php will create this file if it has the correct permissions.
+
+it is just a small and simple basic search index based on term occurence.

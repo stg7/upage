@@ -12,7 +12,7 @@
 </head>
 <body>
     <header>
-        <img src="<?=$_['themedir']?>imgs/pp.jpg" style="width: 100%;" />
+        <img src="<?=$_['themedir']?>img/pp.jpg" style="width: 100%;" />
 
         <h1><?=$_['title']?></h1>
         <p><?=$_['subtitle']?></p>

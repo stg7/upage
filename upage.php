@@ -25,7 +25,6 @@
 
 include_once("include.php");
 include_once("config.php");
-include_once("libs/wiki.php");
 
 
 function loadMenu($selection, $config) {
@@ -34,8 +33,8 @@ function loadMenu($selection, $config) {
 
     $content = array();
 
-    foreach (rscandir($config["contentdir"],$config["contentext"]) as $c) {
-        $key = str_replace(DIRECTORY_SEPARATOR,"/",str_replace($config["contentdir"], "", $c));
+    foreach (rscandir($config["contentdir"], $config["contentext"]) as $c) {
+        $key = str_replace(DIRECTORY_SEPARATOR, "/", str_replace($config["contentdir"], "", $c));
         if(basename($key) != $config["defaultpage"])
             $content[$key] = basename($key);
     }
@@ -44,8 +43,8 @@ function loadMenu($selection, $config) {
     $menu = array();
 
     // main menu entries
-    foreach(rscandir($config["contentdir"],$config["contentext"],false) as $c) {
-        $k = str_replace(DIRECTORY_SEPARATOR,"/",str_replace($config["contentdir"], "", $c));
+    foreach(rscandir($config["contentdir"], $config["contentext"], false) as $c) {
+        $k = str_replace(DIRECTORY_SEPARATOR, "/", str_replace($config["contentdir"], "", $c));
         if(basename($k) != $config["defaultpage"])
             $menu[$k] = $k;
     }
@@ -71,18 +70,41 @@ function loadMenu($selection, $config) {
     foreach($menu as $k => $path) {
 
         $name = basename($path);
-        $name = str_replace(".".get_extension($name),"",$name); // TODO:
+        $name = str_replace(".".get_extension($name), "", $name); // TODO:
 
         $level = substr_count($path, '/');
         $entry = "";
-        for($i = 0; $i < $level; $i++) {
+        for($i = 1; $i <= $level; $i++) {
             $entry .= " ";
         }
         $entry .= "* ";
-        $files .= $entry."[[".get_script_url()."?".$path." | ".$name." ]] "."\n";
+        $files .= $entry.make_link($name, get_script_url()."?".$path)."\n";
     }
 
     return $dirs."\n\n".$files;
+}
+
+function loadPreview($file, $config) {
+    $content = file_get_contents($file);
+
+    $firstlinePos = strpos($content, "\n") + 1;
+    $headline = substr($content, 0, $firstlinePos - 1);
+
+    $cutpos = $firstlinePos + min(90, strlen($content) - $firstlinePos);
+
+    while ($cutpos < strlen($content) and $content[$cutpos] != " ") {
+        $cutpos ++;
+    }
+
+    $prev = substr($content, $firstlinePos, $cutpos - $firstlinePos);
+    $path = str_replace($config["contentdir"], "", $file);
+
+    return $headline."\n".$prev."\n ... ".make_link("more", get_script_url()."?".$path);
+}
+
+function search($basedir) {
+    include_once("sindex.php");
+    return "form ".var_export($index, true);
 }
 
 function loadContent($selection, $config) {
@@ -92,20 +114,29 @@ function loadContent($selection, $config) {
         # print sumarisation of all files or submenu links?
         if (is_file($config["contentdir"].$selection."/".$config["defaultpage"]))
             return file_get_contents($config["contentdir"].$selection."/".$config["defaultpage"]);
-        else
-            return $config["contentdir"].$selection."/".$config["defaultpage"];
+        else {
+            // print preview of all subpages
+            $path = $config["contentdir"].$selection."/";
+            $res = "";
+            foreach(rscandir($path, $config["contentext"], false) as $c) {
+                $res.= loadPreview($c, $config)." \n";
+            }
+
+            return $res."\n";
+        }
     }
     // default case
     return file_get_contents($config["contentdir"].$config["defaultpage"]);
 }
 
-$wiki = new Wiki();
+# TODO: build up cache function
 
 // todo tidy up selection
 $selection = rawurldecode($_SERVER['QUERY_STRING']);
 
+$renderer = new Renderer();
 // load selected menu
-$_['menu'] = $wiki->get_html(loadMenu($selection, $config));
+$_['menu'] = $renderer->get_html(loadMenu($selection, $config));
 
 if(is_dir($config["contentdir"].$selection)) {
     $subpath = $selection;
@@ -121,7 +152,7 @@ $rules = array(
     '$P$' => get_pics(dirname(get_script_url())."/", $config["contentdir"].$subpath."/", $config["downloadext"]),
     '$F$' => get_files(dirname(get_script_url())."/", $config["contentdir"].$subpath."/", $config["downloadext"]),
     '$R$' => get_files_rek(dirname(get_script_url())."/", $config["contentdir"].$subpath."/", $config["downloadext"], $config["contentdir"].$selection."/"),
-
+    '$S$' => search($config["contentdir"]),
 );
 
 
@@ -131,7 +162,7 @@ foreach($rules as $tok => $rep) {
     $content = str_replace($tok, $rep, $content);
 }
 
-$_['content'] = $wiki->get_html($content);
+$_['content'] = $renderer->get_html($content);
 
 // print out theme..
 function theme($_, $dir){
@@ -142,16 +173,14 @@ function theme($_, $dir){
     }
 }
 
-
 // just print debug infos if debug = true
 $_['debug'] = "";
 if ($config['debug']) {
-    #$_['debug'] = "<pre>".var_export($_,true)."</pre>";
+    #$_['debug'] = "<pre>".var_export($_, true)."</pre>";
 }
 
 
 theme($_,$config['themesdir'].$config['theme']);
-
 
 
 
