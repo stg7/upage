@@ -24,6 +24,7 @@
 */
 
 include_once("libs/renderer.php");
+include_once("libs/bibtex.php");
 
 mb_internal_encoding('UTF-8'); // UTF8
 

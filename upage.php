@@ -118,7 +118,7 @@ function loadContent($selection, $config) {
             // print preview of all subpages
             $path = $config["contentdir"].$selection."/";
             $res = "";
-            foreach(rscandir($path, $config["contentext"], false) as $c) {
+            foreach (rscandir($path, $config["contentext"], false) as $c) {
                 $res.= loadPreview($c, $config)." \n";
             }
 
@@ -127,6 +127,21 @@ function loadContent($selection, $config) {
     }
     // default case
     return file_get_contents($config["contentdir"].$config["defaultpage"]);
+}
+
+function print_bibliography($path, $themesdir) {
+    $string = "hallo".$path;
+
+    foreach (rscandir($path, array("bib"), false) as $pub) {
+        $parser = new bibtexparser($pub);
+        $parser->parse();
+
+        ob_start();
+        $parser->print_it(dirname(__file__)."/".$themesdir."bibtex.theme.php");
+        $string=ob_get_contents();
+        ob_end_clean();
+    }
+    return $string;
 }
 
 # TODO: build up cache function
@@ -152,6 +167,7 @@ $rules = array(
     '$P$' => get_pics(dirname(get_script_url())."/", $config["contentdir"].$subpath."/", $config["downloadext"]),
     '$F$' => get_files(dirname(get_script_url())."/", $config["contentdir"].$subpath."/", $config["downloadext"]),
     '$R$' => get_files_rek(dirname(get_script_url())."/", $config["contentdir"].$subpath."/", $config["downloadext"], $config["contentdir"].$selection."/"),
+    '$Pub$' => print_bibliography($config["contentdir"].$subpath."/", $config['themesdir'].$config['theme']),
     '$S$' => search($config["contentdir"]),
 );
 
@@ -180,7 +196,7 @@ if ($config['debug']) {
 }
 
 
-theme($_,$config['themesdir'].$config['theme']);
+theme($_, $config['themesdir'].$config['theme']);
 
 
 

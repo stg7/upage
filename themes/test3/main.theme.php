@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <title><?=$_['title']?></title>
         <link href="<?=$_['themedir']?>style.css" type="text/css" rel="stylesheet">
+        <script type="text/javascript" src="<?=$_['themedir']?>js/bibtex.js" ></script>
 
         <!--[if lt IE 9]>
         <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
