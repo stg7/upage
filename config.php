@@ -39,7 +39,7 @@ $_ = array (
     'title' => "title...",
     'subtitle' => " subtitle",
     'themedir' => $config["themesdir"].$config["theme"],
-    'author' => "stg7 &copy; 2014",
+    'author' => "stg7 &copy; ".date("Y"),
 );
 
 include_once("libs/renderer.php");
